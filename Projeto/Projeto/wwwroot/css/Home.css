@@ -1,0 +1,31 @@
+﻿body {
+    margin: 0;
+}
+
+.banner {
+    background-image: url("../img/travel-world.jpg");
+    text-shadow: 2px 2px 5px #000;
+    background-size: cover;
+    height: 600px;
+}
+
+.title{
+    padding-top: 220px;
+}
+
+.last {
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 5px #333;
+}
+
+.last img{
+    height: 500px;
+}
+
+.last h5, last p {
+    color: lightyellow;
+}
+
+.card-body{
+    margin-top: 0;
+}

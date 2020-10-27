@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Projeto.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <h1 class="text-center py-5">Usuários</h1>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Email
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        @user.Name
+                    </td>
+                    <td>
+                        @user.Email
+                    </td>
+                    <td class="btn-group">
+                        <a class="btn" asp-controller="Usuarios" asp-action="Editar" asp-route-id="@user.Id">Editar</a>
+                        <a class="btn" asp-controller="Usuarios" asp-action="Detalhes" asp-route-id="@user.Id">Detalhes</a>
+                        <a class="btn" asp-controller="Usuarios" asp-action="Deletar" asp-route-id="@user.Id">Deletar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
