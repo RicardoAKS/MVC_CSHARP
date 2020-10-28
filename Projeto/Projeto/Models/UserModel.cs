@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.VisualBasic.FileIO;
 using MySql.Data.MySqlClient;
 
 namespace Projeto.Models
@@ -10,8 +11,9 @@ namespace Projeto.Models
 
         public UserModel()
         {
-            string strConn = "SERVER=localhost;DATABASE=MvcTravel;User id=root;Password=;";
+            string strConn = "SERVER=localhost;DATABASE=mvc_travel;User id=root;Password=;";
             connection = new MySqlConnection(strConn);
+            connection.Open();
         }
 
         public void Dispose()
@@ -19,56 +21,65 @@ namespace Projeto.Models
             connection.Close();
         }
 
-        private bool OpenConnection()
-        {
-            try
-            {
-                connection.Open();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                //When handling errors, you can your application's response based 
-                //on the error number.
-                //The two most common error numbers when connecting are as follows:
-                //0: Cannot connect to server.
-                //1045: Invalid user name and/or password.
-                switch (ex.Number)
-                {
-                    case 0:
-                        break;
-
-                    case 1045:
-                        break;
-                }
-                return false;
-            }
-        }
-
-        private bool CloseConnection()
-        {
-            connection.Close();
-            return true;
-        }
-
         public void Create(User user)
         {
-            string query = @"INSERT INTO user (name, email, password) VALUES (@name, @email, @password)";
 
-            if (this.OpenConnection() == true)
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"INSERT INTO user VALUES (@name, @email, @password)";
+
+            cmd.Parameters.AddWithValue("@name", user.Name);
+            cmd.Parameters.AddWithValue("@email", user.Email);
+            cmd.Parameters.AddWithValue("@password", user.Password);
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public bool Login(User user)
+        {
+            bool resposta = false;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"SELECT * FROM user WHERE name=@name and password=@password";
+
+            cmd.Parameters.AddWithValue("@name", user.Name);
+            cmd.Parameters.AddWithValue("@password", user.Password);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
             {
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@name", user.Name);
-                cmd.Parameters.AddWithValue("@email", user.Email);
-                cmd.Parameters.AddWithValue("@password", user.Password);
-
-                //Execute command
-                cmd.ExecuteNonQuery();
-
-                //close connection
-                this.CloseConnection();
+                user.Id = (int)reader["Id"];
+                user.Name = (string)reader["name"];
+                user.Email = (string)reader["email"];
+                user.Password = (string)reader["password"];
+                resposta = true;
             }
+
+            return resposta;
+        }
+
+        public User Search(int id)
+        {
+            User user = new User();
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"SELECT * FROM user WHERE id=@id";
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                user.Id = (int)reader["Id"];
+                user.Name = (string)reader["name"];
+                user.Email = (string)reader["email"];
+                user.Password = (string)reader["password"];
+            }
+
+            return user;
         }
 
         public List<User> Read()
@@ -77,9 +88,8 @@ namespace Projeto.Models
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"SELECT * FROM User";
+            cmd.CommandText = @"SELECT * FROM user";
 
-            OpenConnection();
             MySqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
@@ -98,17 +108,16 @@ namespace Projeto.Models
 
         }
 
-        public void Update(User user)
+        public void Update(User user, int id)
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"UPDATE User SET name=@name, Email=@email WHERE Id=@id";
+            cmd.CommandText = @"UPDATE user SET name=@nome, email=@email WHERE Id=@id";
 
-            cmd.Parameters.AddWithValue("@name", user.Name);
+            cmd.Parameters.AddWithValue("@nome", user.Name);
             cmd.Parameters.AddWithValue("@email", user.Email);
-            cmd.Parameters.AddWithValue("@id", user.Id);
+            cmd.Parameters.AddWithValue("@id", id);
 
-            OpenConnection();
             cmd.ExecuteNonQuery();
         }
 
@@ -116,7 +125,7 @@ namespace Projeto.Models
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"DELETE FROM User WHERE Id=@id";
+            cmd.CommandText = @"DELETE FROM user WHERE Id=@id";
 
             cmd.Parameters.AddWithValue("@id", id);
 

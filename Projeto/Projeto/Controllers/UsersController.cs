@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Projeto.Models;
 
 namespace Projeto.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : Controller 
     {
 
         // GET: Users
         [Route("Usuarios")]
-        [Route("Users")]
         public IActionResult Index()
         {
             using (UserModel model = new UserModel())
@@ -36,7 +37,7 @@ namespace Projeto.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost("Users/Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Microsoft.AspNetCore.Http.IFormCollection form)
+        public IActionResult Create(IFormCollection form)
         {
             User user = new User();
             user.Name = form["Name"];
@@ -50,12 +51,84 @@ namespace Projeto.Controllers
             }
         }
 
-        // GET: Users/Edit/5
-        /*[Route("Usuarios/Editar/{id}")]
-        [Route("Users/Edit/{id}")]*/
+        [Route("Usuarios/Login")]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost("Users/Login")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(IFormCollection form)
+        {
+            User user = new User();
+            user.Name = form["Name"];
+            user.Password = form["Password"];
+
+            using (UserModel model = new UserModel())
+            {
+                User user1 = model.Login(user);
+                if(user1)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+        }
+
+
+            // GET: Users/Edit/5
+        [Route("Usuarios/Editar/{id}")]
+        [Route("Users/Edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            using (UserModel model = new UserModel())
+            {
+                User user = model.Search(id);
+                return View(user);
+            }
+        }
+
+        [HttpPost("Users/Edit/{id}")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(IFormCollection form, int id)
+        {
+            User user = new User();
+            user.Name = form["Name"];
+            user.Email = form["Email"];
+            user.Password = form["Password"];
+
+            using (UserModel model = new UserModel())
+            {
+                model.Update(user, id);
+                return RedirectToAction("Index");
+            }
+        }
+
+        [Route("Usuarios/Detalhes/{id}")]
+        public IActionResult Details(int id)
+        {
+
+            using (UserModel model = new UserModel())
+            {
+                User user = model.Search(id);
+                return View(user);
+            }
+        }
 
         // GET: Users/Delete/5
-        /*[Route("Usuarios/Deletar/{id}")]
-        [Route("Users/Delete/{id}")]*/
+        [Route("Usuarios/Deletar/{id}")]
+        [Route("Users/Delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            using (UserModel model = new UserModel())
+            {
+                model.Delete(id);
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
