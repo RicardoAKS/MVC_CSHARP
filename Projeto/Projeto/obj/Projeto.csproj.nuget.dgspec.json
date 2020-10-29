@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\xampp\\htdocs\\Ricardo_alexandre\\CSHARP\\MVC\\Projeto\\Projeto\\Projeto.csproj": {}
+    "C:\\Users\\Ricar\\OneDrive\\Documentos\\GitHub\\MVC_CSharp_OFC\\Projeto\\Projeto\\Projeto.csproj": {}
   },
   "projects": {
-    "C:\\xampp\\htdocs\\Ricardo_alexandre\\CSHARP\\MVC\\Projeto\\Projeto\\Projeto.csproj": {
+    "C:\\Users\\Ricar\\OneDrive\\Documentos\\GitHub\\MVC_CSharp_OFC\\Projeto\\Projeto\\Projeto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\xampp\\htdocs\\Ricardo_alexandre\\CSHARP\\MVC\\Projeto\\Projeto\\Projeto.csproj",
+        "projectUniqueName": "C:\\Users\\Ricar\\OneDrive\\Documentos\\GitHub\\MVC_CSharp_OFC\\Projeto\\Projeto\\Projeto.csproj",
         "projectName": "Projeto",
-        "projectPath": "C:\\xampp\\htdocs\\Ricardo_alexandre\\CSHARP\\MVC\\Projeto\\Projeto\\Projeto.csproj",
-        "packagesPath": "C:\\Users\\Notebook 4\\.nuget\\packages\\",
-        "outputPath": "C:\\xampp\\htdocs\\Ricardo_alexandre\\CSHARP\\MVC\\Projeto\\Projeto\\obj\\",
+        "projectPath": "C:\\Users\\Ricar\\OneDrive\\Documentos\\GitHub\\MVC_CSharp_OFC\\Projeto\\Projeto\\Projeto.csproj",
+        "packagesPath": "C:\\Users\\Ricar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ricar\\OneDrive\\Documentos\\GitHub\\MVC_CSharp_OFC\\Projeto\\Projeto\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Notebook 4\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ricar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

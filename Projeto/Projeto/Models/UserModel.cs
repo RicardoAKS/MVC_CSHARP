@@ -35,9 +35,9 @@ namespace Projeto.Models
             cmd.ExecuteNonQuery();
         }
 
-        public bool Login(User user)
+        public int Login(User user)
         {
-            bool resposta = false;
+            int resposta = 0;
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = @"SELECT * FROM user WHERE name=@name and password=@password";
@@ -53,33 +53,35 @@ namespace Projeto.Models
                 user.Name = (string)reader["name"];
                 user.Email = (string)reader["email"];
                 user.Password = (string)reader["password"];
-                resposta = true;
+                resposta = (int)reader["Id"];
             }
 
+            connection.Close();
             return resposta;
         }
 
         public User Search(int id)
         {
-            User user = new User();
+            connection.Open();
+            User user1 = new User();
 
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.Connection = connection;
-            cmd.CommandText = @"SELECT * FROM user WHERE id=@id";
+            MySqlCommand cmd1 = new MySqlCommand();
+            cmd1.Connection = connection;
+            cmd1.CommandText = @"SELECT * FROM user WHERE id=@id";
 
-            cmd.Parameters.AddWithValue("@id", id);
+            cmd1.Parameters.AddWithValue("@id", id);
 
-            MySqlDataReader reader = cmd.ExecuteReader();
+            MySqlDataReader reader1 = cmd1.ExecuteReader();
 
-            while (reader.Read())
+            while (reader1.Read())
             {
-                user.Id = (int)reader["Id"];
-                user.Name = (string)reader["name"];
-                user.Email = (string)reader["email"];
-                user.Password = (string)reader["password"];
+                user1.Id = (int)reader1["Id"];
+                user1.Name = (string)reader1["name"];
+                user1.Email = (string)reader1["email"];
+                user1.Password = (string)reader1["password"];
             }
 
-            return user;
+            return user1;
         }
 
         public List<User> Read()

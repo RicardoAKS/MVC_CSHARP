@@ -21,8 +21,17 @@ namespace Projeto.Controllers
         }
 
         // GET: Users/Details/5
-        /*[Route("Usuarios/Detalhes/{id}")]
-        [Route("Users/Details/{id}")]*/
+        [Route("Usuarios/Detalhes/{id}")]
+        [Route("Users/Details/{id}")]
+        public IActionResult Details(int id)
+        {
+
+            using (UserModel model = new UserModel())
+            {
+                User user = model.Search(id);
+                return View(user);
+            }
+        }
 
         // GET: Users/Create
         [Route("Usuarios/Criação")]
@@ -67,9 +76,10 @@ namespace Projeto.Controllers
 
             using (UserModel model = new UserModel())
             {
-                User user1 = model.Login(user);
-                if(user1)
+                int result = model.Login(user);
+                if(result != 0)
                 {
+                    User user2 = model.Search(result);
                     return RedirectToAction("Index");
                 }
                 else
@@ -105,17 +115,6 @@ namespace Projeto.Controllers
             {
                 model.Update(user, id);
                 return RedirectToAction("Index");
-            }
-        }
-
-        [Route("Usuarios/Detalhes/{id}")]
-        public IActionResult Details(int id)
-        {
-
-            using (UserModel model = new UserModel())
-            {
-                User user = model.Search(id);
-                return View(user);
             }
         }
 
