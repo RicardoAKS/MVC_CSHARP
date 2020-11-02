@@ -1,6 +1,6 @@
 ﻿@model Projeto.Models.User
 
-@{ ViewData["Title"] = "Página de Registro"; }
+@{ ViewData["Title"] = "Página de Login"; }
 <h1 class=" pt-5 text-center">@ViewData["Title"]</h1>
 
 <div class="container cadastro">
@@ -13,6 +13,9 @@
             <label asp-for="Password">Senha <span class="text-danger">*</span></label>
             <input type="password" class="form-control" asp-for="Password" name="Password" id="Password" placeholder="Coloque a sua senha">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </div>
     </form>
+    <p class="text-center text-danger">@ViewBag.Erro</p>
 </div>

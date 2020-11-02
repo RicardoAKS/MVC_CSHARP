@@ -1,0 +1,6 @@
+﻿@media (max-width: 767px) {
+    footer .link-responsive {
+        text-align: center !important;
+        margin-bottom: 30px;
+    }
+}

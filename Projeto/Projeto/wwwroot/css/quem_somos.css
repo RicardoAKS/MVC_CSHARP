@@ -1,0 +1,20 @@
+﻿.quemSomos#content-quemSomos .banner h2 {
+    font-size: 60pt;
+    padding: 100px 0 100px 0;
+    text-align: center;
+}
+
+.quemSomos#content-quemSomos .column-3 {
+    width: 33.33%;
+}
+
+.quemSomos#content-quemSomos img {
+    width: 75%;
+    border-radius: 100%;
+}
+
+@media only screen and (max-width: 770px) {
+    .quemSomos#content-quemSomos .column-3 {
+        width: 100%;
+    }
+}

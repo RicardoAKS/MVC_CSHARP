@@ -2,30 +2,45 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Projeto.Models;
 
 namespace Projeto.Controllers
 {
     public class UsersController : Controller 
     {
-
-        // GET: Users
         [Route("Usuarios")]
+        [Route("Usuarios/Inicio")]
         public IActionResult Index()
         {
-            using (UserModel model = new UserModel())
+            int? Result = HttpContext.Session.GetInt32("ResultSession");
+            ViewBag.SessionVerify = HttpContext.Session.GetInt32("ResultSession");
+            if (Result == 1)
             {
-                List<User> lista = model.Read();
-                return View(lista);
+                User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserSession"));
+                ViewBag.UserName = user.Name;
+                using (UserModel model = new UserModel())
+                {
+                    List<User> lista = model.Read();
+                    return View(lista);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login");
             }
         }
 
-        // GET: Users/Details/5
         [Route("Usuarios/Detalhes/{id}")]
-        [Route("Users/Details/{id}")]
         public IActionResult Details(int id)
         {
-
+            int? Result = HttpContext.Session.GetInt32("ResultSession");
+            ViewBag.SessionVerify = HttpContext.Session.GetInt32("ResultSession");
+            if (Result == 1)
+            {
+                User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserSession"));
+                ViewBag.UserName = user.Name;
+            }
             using (UserModel model = new UserModel())
             {
                 User user = model.Search(id);
@@ -33,30 +48,25 @@ namespace Projeto.Controllers
             }
         }
 
-        // GET: Users/Create
         [Route("Usuarios/Criação")]
-        [Route("Users/Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost("Users/Create")]
+        [HttpPost("Usuarios/Create")]
         [ValidateAntiForgeryToken]
         public IActionResult Create(IFormCollection form)
         {
             User user = new User();
             user.Name = form["Name"];
             user.Email = form["Email"];
-            user.Password = form["Password"];
 
             using (UserModel model = new UserModel())
             {
+                user.Password = model.CriptografaSenha(form["Password"]);
                 model.Create(user);
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
         }
 
@@ -66,68 +76,104 @@ namespace Projeto.Controllers
             return View();
         }
 
-        [HttpPost("Users/Login")]
+        [HttpPost("Usuarios/Login")]
         [ValidateAntiForgeryToken]
         public IActionResult Login(IFormCollection form)
         {
             User user = new User();
             user.Name = form["Name"];
-            user.Password = form["Password"];
 
             using (UserModel model = new UserModel())
             {
+                user.Password = model.CriptografaSenha(form["Password"]);
                 int result = model.Login(user);
                 if(result != 0)
                 {
-                    User user2 = model.Search(result);
-                    return RedirectToAction("Index");
+                    User index = model.Search(result);
+                    int resultInt = 1;
+                    HttpContext.Session.SetString("UserSession", JsonConvert.SerializeObject(index));
+                    HttpContext.Session.SetInt32("ResultSession", resultInt);
+                    ViewBag.SessionVerify = HttpContext.Session.GetInt32("ResultSession");
+                    return RedirectToAction("index");
                 }
                 else
                 {
+                    ViewBag.Erro = "Usuário ou senha invalidos!";
                     return View();
                 }
             }
         }
 
-
-            // GET: Users/Edit/5
         [Route("Usuarios/Editar/{id}")]
-        [Route("Users/Edit/{id}")]
         public IActionResult Edit(int id)
         {
-            using (UserModel model = new UserModel())
+            int? Result = HttpContext.Session.GetInt32("ResultSession");
+            ViewBag.SessionVerify = HttpContext.Session.GetInt32("ResultSession");
+            if (Result == 1)
             {
-                User user = model.Search(id);
-                return View(user);
+                User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserSession"));
+                ViewBag.UserName = user.Name;
+                if (id == user.Id)
+                {
+                    using (UserModel model = new UserModel())
+                    {
+                        User search = model.Search(id);
+                        return View(search);
+                    }
+                }
             }
+
+            return RedirectToAction("Index");
         }
 
-        [HttpPost("Users/Edit/{id}")]
+        [HttpPost("Usuarios/Editar/{id}")]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(IFormCollection form, int id)
         {
             User user = new User();
             user.Name = form["Name"];
             user.Email = form["Email"];
-            user.Password = form["Password"];
 
             using (UserModel model = new UserModel())
             {
                 model.Update(user, id);
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
         }
 
         // GET: Users/Delete/5
         [Route("Usuarios/Deletar/{id}")]
-        [Route("Users/Delete/{id}")]
         public IActionResult Delete(int id)
         {
-            using (UserModel model = new UserModel())
+            int? Result = HttpContext.Session.GetInt32("ResultSession");
+            ViewBag.SessionVerify = HttpContext.Session.GetInt32("ResultSession");
+            if (Result == 1)
             {
-                model.Delete(id);
-                return RedirectToAction("Index");
+                User user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("UserSession"));
+                ViewBag.UserName = user.Name;
+                if (id == user.Id)
+                {
+                    using (UserModel model = new UserModel())
+                    {
+                        model.Delete(id);
+                        int resultInt = 0;
+                        HttpContext.Session.SetInt32("ResultSession", resultInt);
+                        return RedirectToAction("Login");
+                    }
+                }
             }
+            return RedirectToAction("Index");
+        }
+
+        [Route("Usuarios/Logout")]
+        public IActionResult Logout()
+        {
+            int resultInt = 0;
+            string index = null;
+            HttpContext.Session.SetString("UserSession", JsonConvert.SerializeObject(index));
+            HttpContext.Session.SetInt32("ResultSession", resultInt);
+            ViewBag.SessionVerify = HttpContext.Session.GetInt32("ResultSession");
+            return RedirectToAction("Login");
         }
     }
 }

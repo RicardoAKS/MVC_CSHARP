@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "viYMhnI1Qfrj7m6zPjrP6Rr/UNtX3yedHhDPkKwn28oa946taxA0SZ/mZMwe8V2o1Jrts/cczbglrAdedaxrJA==",
+  "dgSpecHash": "FH9FxHcy4mPy4JWWc6unXmj0GlaJED2+RvpI8GaorRYPZ8fyDv3qC62m3xhj7BZTP6TW7J+wVrIEiNUV7UDtsQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ricar\\OneDrive\\Documentos\\GitHub\\MVC_CSharp_OFC\\Projeto\\Projeto\\Projeto.csproj",
   "expectedPackageFiles": [
@@ -26,6 +26,7 @@
     "C:\\Users\\Ricar\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Ricar\\.nuget\\packages\\mysql.data\\8.0.22\\mysql.data.8.0.22.nupkg.sha512",
     "C:\\Users\\Ricar\\.nuget\\packages\\netstandard.library\\1.6.0\\netstandard.library.1.6.0.nupkg.sha512",
+    "C:\\Users\\Ricar\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Ricar\\.nuget\\packages\\runtime.native.system\\4.0.0\\runtime.native.system.4.0.0.nupkg.sha512",
     "C:\\Users\\Ricar\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\Ricar\\.nuget\\packages\\runtime.native.system.io.compression\\4.1.0\\runtime.native.system.io.compression.4.1.0.nupkg.sha512",

@@ -5,26 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Projeto</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/lib/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/lib/fontawesome/css/brands.min.css">
+    <link rel="stylesheet" type="text/css" href="~/lib/fontawesome/css/solid.min.css">
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/Home.css" />
+    <link rel="stylesheet" href="~/css/Footer.css" />
+    <link rel="stylesheet" href="~/css/quem_somos.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary box-shadow">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Projeto</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <a class="navbar-brand text-white" href="~/"><img src="~/img/logo.png" width="40px"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon text-right"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav justify-content-end">
+
+                <!-- Links -->
+                <div class="collapse navbar-collapse justify-content-end text-right" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                            @if (ViewBag.UserName == null)
+                            {
+                                <a class="nav-link text-white" href="~/Usuarios/Login">Login</a>
+                            }
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Usuarios" asp-action="Criação">Registro</a>
+                            @if (ViewBag.UserName == null)
+                            {
+                                <a class="nav-link text-white" href="~/Usuarios/Criação">Registro</a>
+                            }
+                            else
+                            {
+                                <a class="nav-link text-white" href="~/Usuarios/Inicio">@ViewBag.UserName</a>
+                            }
                         </li>
+                        @if (ViewBag.SessionVerify == 1)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="~/Usuarios/Logout">Sair</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -34,9 +56,37 @@
             @RenderBody()
         </main>
 
-    <footer class="border-top footer text-muted bg-primary text-center mt-5">
-        <div class="container text-white">
-            &copy; 2020 - Projeto
+    <footer class="text-muted footer bg-primary text-center">
+        <div class="rodape" id="content-rodape">
+            <!-- Rodapé -->
+            <div class="container">
+
+                <section class="menus">
+
+                    <div class="row">
+
+                        <!-- Links -->
+                        <div class="col-md-6 col-sm-12 col-12">
+                            <h3 class="my-2 text-light text-center"><b>Páginas</b></h3>
+                            <div class="link-responsive text-left">
+                                <a href="~/" class="text-light d-block ml-5">Home</a>
+                                <a href="~/Usuarios" class="text-light d-block ml-5">Usuários</a>
+                                <a href="~/QuemSomos" class="text-light d-block ml-5">Quem Somos</a>
+                            </div>
+                        </div>
+
+                        <!-- Politica -->
+                        <div class="col-md-6 col-sm-12 col-12">
+                            <h3 class="my-2 text-light text-center"><b>Informações</b></h3>
+                            <div class="link-responsive text-left">
+                                <a href="#" class="text-light d-block ml-5">Política de privacidade</a>
+                                <a href="#" class="text-light d-block ml-5">Termos de uso</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

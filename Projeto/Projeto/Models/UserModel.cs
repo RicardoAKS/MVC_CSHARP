@@ -13,7 +13,6 @@ namespace Projeto.Models
         {
             string strConn = "SERVER=localhost;DATABASE=mvc_travel;User id=root;Password=;";
             connection = new MySqlConnection(strConn);
-            connection.Open();
         }
 
         public void Dispose()
@@ -21,22 +20,37 @@ namespace Projeto.Models
             connection.Close();
         }
 
+        public string CriptografaSenha(string password)
+        {
+            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(password);
+            byte[] hash = md5.ComputeHash(inputBytes);
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("X2"));
+            }
+            return sb.ToString();
+        }
+
         public void Create(User user)
         {
-
+            connection.Open();
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = connection;
-            cmd.CommandText = @"INSERT INTO user VALUES (@name, @email, @password)";
+            cmd.CommandText = @"INSERT INTO user (name, email, password) VALUES (@name, @email, @password)";
 
             cmd.Parameters.AddWithValue("@name", user.Name);
             cmd.Parameters.AddWithValue("@email", user.Email);
             cmd.Parameters.AddWithValue("@password", user.Password);
 
             cmd.ExecuteNonQuery();
+            connection.Close();
         }
 
         public int Login(User user)
         {
+            connection.Open();
             int resposta = 0;
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = connection;
@@ -81,11 +95,13 @@ namespace Projeto.Models
                 user1.Password = (string)reader1["password"];
             }
 
+            connection.Close();
             return user1;
         }
 
         public List<User> Read()
         {
+            connection.Open();
             List<User> lista = new List<User>();
 
             MySqlCommand cmd = new MySqlCommand();
@@ -106,12 +122,14 @@ namespace Projeto.Models
                 lista.Add(user);
             }
 
+            connection.Close();
             return lista;
 
         }
 
         public void Update(User user, int id)
         {
+            connection.Open();
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = @"UPDATE user SET name=@nome, email=@email WHERE Id=@id";
@@ -121,10 +139,12 @@ namespace Projeto.Models
             cmd.Parameters.AddWithValue("@id", id);
 
             cmd.ExecuteNonQuery();
+            connection.Close();
         }
 
         public void Delete(int id)
         {
+            connection.Open();
             MySqlCommand cmd = new MySqlCommand();
             cmd.Connection = connection;
             cmd.CommandText = @"DELETE FROM user WHERE Id=@id";
@@ -132,6 +152,7 @@ namespace Projeto.Models
             cmd.Parameters.AddWithValue("@id", id);
 
             cmd.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

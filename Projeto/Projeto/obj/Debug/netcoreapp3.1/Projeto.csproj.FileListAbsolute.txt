@@ -1927,9 +1927,6 @@ C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\bin\Deb
 C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.csprojAssemblyReference.cache
 C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.AssemblyInfoInputs.cache
 C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.AssemblyInfo.cs
-C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.csproj.CoreCompileInputs.cache
-C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.RazorAssemblyInfo.cache
 C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.RazorAssemblyInfo.cs
 C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.TagHelpers.input.cache
@@ -1955,3 +1952,8 @@ C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Deb
 C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.dll
 C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.pdb
 C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.genruntimeconfig.cache
+C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.csproj.CoreCompileInputs.cache
+C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Projeto.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Ricar\OneDrive\Documentos\GitHub\MVC_CSharp_OFC\Projeto\Projeto\obj\Debug\netcoreapp3.1\Razor\Views\Home\Quem_somos.cshtml.g.cs

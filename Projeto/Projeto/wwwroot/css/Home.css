@@ -1,31 +1,119 @@
-﻿body {
-    margin: 0;
-}
-
-.banner {
-    background-image: url("../img/travel-world.jpg");
-    text-shadow: 2px 2px 5px #000;
+﻿.home#content-home .banner {
+    background-image: url(../../img/banner.jpg);
+    text-shadow: 2px 2px 3px #000;
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
-    height: 600px;
+    padding-top: 150px;
+    height: 528px;
+    width: 100%;
 }
 
-.title{
-    padding-top: 220px;
+.home#content-home .card_first {
+    margin-left: 80px !important;
 }
 
-.last {
-    margin-bottom: 40px;
-    text-shadow: 2px 2px 5px #333;
+.home#content-home .column-1 {
+    width: 13.33%;
 }
 
-.last img{
-    height: 500px;
+.home#content-home .column-3 {
+    width: 33.33%;
 }
 
-.last h5, last p {
-    color: lightyellow;
+.home#content-home .column-6 {
+    width: 50%;
 }
 
-.card-body{
-    margin-top: 0;
+.home#content-home .column-12 {
+    width: 100%;
+}
+
+
+.home#content-home .card-text {
+    margin-top: 80px;
+    text-shadow: 2px 2px 5px #000;
+}
+
+.home#content-home section.about {
+    height: 350px;
+    background-image: url(../../img/fundo_do_mar.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-attachment: fixed;
+    color: #fff;
+    text-align: center;
+    -webkit-filter: grayscale(96%);
+    -moz-filter: grayscale(96%);
+    -ms-filter: grayscale(96%);
+    -o-filter: grayscale(96%);
+    filter: grayscale(96%);
+    text-shadow: 2px 2px 5px #000;
+}
+
+.home#content-home section.about h3 {
+    padding-top: 70px;
+}
+
+.home#content-home section.about p {
+    margin-top: 30px;
+    text-align: justify;
+}
+
+.home#content-home section.main {
+    background-color: darkcyan;
+}
+
+@media only screen and (max-width: 990px) {
+    .home#content-home .card .float-left {
+        float: left;
+    }
+
+    .home#content-home .card .float-right {
+        float: right;
+    }
+
+    .home#content-home .card img {
+        width: 100%;
+    }
+
+    .home#content-home .column-1 {
+        width: 33.33%;
+    }
+
+    .home#content-home section.about {
+        height: 450px;
+    }
+
+    .home#content-home .card_third {
+        margin-left: 80px !important;
+    }
+
+    .home#content-home .card_fifty {
+        margin-left: 200px !important;
+    }
+}
+
+@media only screen and (max-width: 505px) {
+    .home#content-home .column-1 {
+        width: 100%;
+        margin: 0;
+    }
+
+    .home#content-home .card_first {
+        margin-left: 25px !important;
+    }
+
+    .home#content-home .card_third {
+        margin-left: 25px !important;
+    }
+
+    .home#content-home .card_fifty {
+        margin-left: 25px !important;
+    }
+
+    .home#content-home section.about {
+        height: 580px;
+    }
 }
