@@ -73,33 +73,51 @@ namespace Projeto.Controllers
         [Route("Usuarios/Login")]
         public IActionResult Login()
         {
-            return View();
+            int? Result = HttpContext.Session.GetInt32("ResultSession");
+            ViewBag.SessionVerify = HttpContext.Session.GetInt32("ResultSession");
+            if (Result != 1)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost("Usuarios/Login")]
         [ValidateAntiForgeryToken]
         public IActionResult Login(IFormCollection form)
         {
-            User user = new User();
-            user.Name = form["Name"];
-
-            using (UserModel model = new UserModel())
+            int? Result = HttpContext.Session.GetInt32("ResultSession");
+            ViewBag.SessionVerify = HttpContext.Session.GetInt32("ResultSession");
+            if (Result == 1)
             {
-                user.Password = model.CriptografaSenha(form["Password"]);
-                int result = model.Login(user);
-                if(result != 0)
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                User user = new User();
+                user.Name = form["Name"];
+
+                using (UserModel model = new UserModel())
                 {
-                    User index = model.Search(result);
-                    int resultInt = 1;
-                    HttpContext.Session.SetString("UserSession", JsonConvert.SerializeObject(index));
-                    HttpContext.Session.SetInt32("ResultSession", resultInt);
-                    ViewBag.SessionVerify = HttpContext.Session.GetInt32("ResultSession");
-                    return RedirectToAction("index");
-                }
-                else
-                {
-                    ViewBag.Erro = "Usuário ou senha invalidos!";
-                    return View();
+                    user.Password = model.CriptografaSenha(form["Password"]);
+                    int result = model.Login(user);
+                    if (result != 0)
+                    {
+                        User index = model.Search(result);
+                        int resultInt = 1;
+                        HttpContext.Session.SetString("UserSession", JsonConvert.SerializeObject(index));
+                        HttpContext.Session.SetInt32("ResultSession", resultInt);
+                        ViewBag.SessionVerify = HttpContext.Session.GetInt32("ResultSession");
+                        return RedirectToAction("index");
+                    }
+                    else
+                    {
+                        ViewBag.Erro = "Usuário ou senha invalidos!";
+                        return View();
+                    }
                 }
             }
         }
@@ -122,7 +140,6 @@ namespace Projeto.Controllers
                     }
                 }
             }
-
             return RedirectToAction("Index");
         }
 
@@ -137,6 +154,8 @@ namespace Projeto.Controllers
             using (UserModel model = new UserModel())
             {
                 model.Update(user, id);
+                int resultInt = 0;
+                HttpContext.Session.SetInt32("ResultSession", resultInt);
                 return RedirectToAction("Login");
             }
         }
